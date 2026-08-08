@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yuki Sato</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #0c1826;
+    --ink-line: #29496b;
+    --ink-line-soft: #16283c;
+    --blue: #6fa3cf;
+    --gold: #d1a355;
+    --gold-dim: #8a6f3f;
+    --text-light: #eae5d6;
+    --text-dim: #86a0ba;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans JP', sans-serif;
+    --serif: 'Zen Old Mincho', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--text-light);
+    font-family: var(--sans);
+    line-height: 1.75;
+    position: relative;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+      linear-gradient(var(--ink-line-soft) 1px, transparent 1px),
+      linear-gradient(90deg, var(--ink-line-soft) 1px, transparent 1px);
+    background-size: 44px 44px;
+    will-change: transform;
+  }
+  .bg-vignette {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(111,163,207,0.10), transparent 60%),
+                radial-gradient(ellipse 80% 60% at 100% 100%, rgba(209,163,85,0.06), transparent 60%);
+  }
+  .bg-noise {
+    position: fixed; inset: 0; z-index: 2; pointer-events: none; opacity: 0.035; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .glow-cursor {
+    position: fixed; z-index: 3; pointer-events: none;
+    width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(209,163,85,0.06), transparent 70%);
+    transform: translate(-50%, -50%);
+    left: -999px; top: -999px;
+    transition: left 0.12s linear, top 0.12s linear;
+  }
+  @media (hover: none) { .glow-cursor { display: none; } }
+
+  .register {
+    position: fixed; width: 22px; height: 22px; z-index: 40; pointer-events: none; opacity: 0.5;
+  }
+  .register::before, .register::after { content: ''; position: absolute; background: var(--gold-dim); }
+  .register::before { width: 100%; height: 1px; top: 50%; }
+  .register::after { height: 100%; width: 1px; left: 50%; }
+  .register.tl { top: 18px; left: 18px; }
+  .register.tr { top: 18px; right: 18px; }
+  .register.bl { bottom: 18px; left: 18px; }
+  .register.br { bottom: 18px; right: 18px; }
+
+  a { color: var(--gold); text-decoration: none; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 10; }
+
+  header {
+    padding: 104px 0 68px;
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.16em; color: var(--blue);
+    text-transform: uppercase; display: flex; align-items: center; gap: 10px;
+    opacity: 0; animation: rise 0.7s 0.05s ease forwards;
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--blue); }
+
+  h1 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: clamp(34px, 5.6vw, 58px);
+    line-height: 1.42; margin: 22px 0 22px; color: var(--text-light);
+    opacity: 0; animation: rise 0.8s 0.15s ease forwards;
+  }
+  h1 .accent { color: var(--gold); position: relative; }
+  h1 .accent::after {
+    content: ''; position: absolute; left: -2px; right: -2px; bottom: 4px; height: 8px;
+    background: var(--gold); opacity: 0.18; z-index: -1; transform-origin: left;
+    animation: draw-line 1s 0.85s cubic-bezier(.65,0,.35,1) both;
+  }
+
+  .lede {
+    font-size: 16.5px; color: var(--text-dim); max-width: 52ch;
+    opacity: 0; animation: rise 0.8s 0.3s ease forwards;
+  }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes draw-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  .compass-wrap {
+    position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    opacity: 0; animation: rise 1s 0.4s ease forwards;
+  }
+  .compass { width: 100%; max-width: 240px; animation: spin 70s linear infinite; }
+  .compass .needle-a { transform-origin: 100px 100px; animation: sweep-a 9s ease-in-out infinite; }
+  .compass .needle-b { transform-origin: 100px 100px; animation: sweep-b 11s ease-in-out infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes sweep-a { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(10deg); } }
+  @keyframes sweep-b { 0%,100% { transform: rotate(4deg); } 50% { transform: rotate(-12deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eyebrow, h1, .lede, .compass-wrap { animation: none !important; opacity: 1 !important; }
+    .compass, .needle-a, .needle-b { animation: none !important; }
+    h1 .accent::after { transform: scaleX(1); }
+    * { scroll-behavior: auto !important; }
+  }
+
+  .title-block {
+    margin-top: 36px; border: 1px solid var(--ink-line); background: rgba(234, 230, 218, 0.025);
+    opacity: 0; animation: rise 0.8s 0.55s ease forwards;
+  }
+  .title-block-row { display: grid; grid-template-columns: 120px 1fr; border-bottom: 1px solid var(--ink-line); }
+  .title-block-row:last-child { border-bottom: none; }
+  .title-block-row .label {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--text-dim);
+    padding: 11px 13px; border-right: 1px solid var(--ink-line); text-transform: uppercase;
+  }
+  .title-block-row .value { font-family: var(--mono); font-size: 13px; padding: 11px 13px; color: var(--text-light); }
+
+  @media (max-width: 760px) {
+    header { grid-template-columns: 1fr; }
+    .compass-wrap { display: none; }
+  }
+
+  section {
+    padding: 68px 0; border-top: 1px solid var(--ink-line);
+    opacity: 0; transform: translateY(22px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  section.in-view { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { section { opacity: 1; transform: none; transition: none; } }
+
+  .section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 30px; }
+  .section-num {
+    font-family: var(--mono); font-size: 12px; color: var(--blue); letter-spacing: 0.1em;
+    position: relative; padding-left: 16px;
+  }
+  .section-num::before { content: ''; position: absolute; left: 0; top: 50%; width: 8px; height: 1px; background: var(--blue); }
+  h2 { font-family: var(--serif); font-weight: 700; font-size: 27px; color: var(--text-light); }
+
+  p { color: var(--text-dim); max-width: 64ch; }
+  p + p { margin-top: 14px; }
+
+  .timeline { margin-top: 8px; }
+  .t-item {
+    position: relative; padding: 0 0 42px 32px; border-left: 1px solid var(--ink-line);
+    opacity: 0; transform: translateX(-10px);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease;
+  }
+  section.in-view .t-item { opacity: 1; transform: translateX(0); }
+  section.in-view .t-item:nth-child(1) { transition-delay: 0.05s; }
+  section.in-view .t-item:nth-child(2) { transition-delay: 0.2s; }
+  section.in-view .t-item:nth-child(3) { transition-delay: 0.35s; }
+  .t-item:last-child { border-left: 1px solid transparent; padding-bottom: 0; }
+  .t-item::before {
+    content: ''; position: absolute; left: -6px; top: 4px; width: 11px; height: 11px;
+    background: var(--gold); border: 2px solid var(--ink);
+    transform: rotate(45deg); transition: transform 0.35s ease, box-shadow 0.35s ease;
+  }
+  .t-item:hover::before { transform: rotate(135deg) scale(1.25); box-shadow: 0 0 12px rgba(209,163,85,0.5); }
+
+  .t-period { font-family: var(--mono); font-size: 12px; color: var(--blue); letter-spacing: 0.05em; }
+  .t-role { font-family: var(--serif); font-weight: 700; font-size: 19px; color: var(--text-light); margin: 8px 0 10px; }
+  .t-desc { color: var(--text-dim); font-size: 14.5px; max-width: 58ch; }
+  .t-stack { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 7px; }
+  .t-stack span {
+    font-family: var(--mono); font-size: 11px; color: var(--gold); border: 1px solid var(--ink-line);
+    padding: 4px 9px; transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+  }
+  .t-item:hover .t-stack span { border-color: var(--gold-dim); background: rgba(209,163,85,0.06); }
+  .t-stack span:hover { transform: translateY(-2px); }
+
+  .legend { list-style: none; display: grid; gap: 12px; margin-top: 8px; }
+  .legend li { display: grid; grid-template-columns: 170px 1fr auto; align-items: center; gap: 18px; font-family: var(--mono); font-size: 13px; }
+  .legend .name { color: var(--text-light); }
+  .bar { height: 3px; background: var(--ink-line); position: relative; overflow: hidden; }
+  .bar span {
+    position: absolute; inset: 0; background: linear-gradient(90deg, var(--blue), var(--gold));
+    width: 0%; transition: width 1.2s cubic-bezier(.25,.8,.25,1);
+  }
+  section.in-view .bar span { width: var(--fill, 30%); }
+  .legend .status { color: var(--text-dim); font-size: 11px; white-space: nowrap; }
+
+  .project-card {
+    border: 1px solid var(--ink-line); padding: 30px; margin-top: 8px; position: relative;
+    background: linear-gradient(135deg, rgba(209,163,85,0.05), transparent 60%);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .project-card:hover { border-color: var(--gold-dim); transform: translateY(-3px); }
+  .project-card .tag {
+    display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--ink); background: var(--gold); padding: 3px 9px; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .project-card h3 { font-family: var(--serif); font-weight: 700; font-size: 18px; color: var(--text-light); margin-bottom: 10px; }
+
+  footer { padding: 56px 0 88px; border-top: 1px solid var(--ink-line); opacity: 1; transform: none; }
+  .email-link {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-family: var(--serif); font-weight: 700;
+    font-size: clamp(24px, 4vw, 36px);
+    color: var(--text-light);
+    position: relative; padding-bottom: 8px;
+  }
+  .email-link .arrow {
+    display: inline-block; transition: transform 0.3s ease; color: var(--gold);
+  }
+  .email-link::after {
+    content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 1px; background: var(--ink-line);
+  }
+  .email-link .fill {
+    position: absolute; left: 0; bottom: 0; width: 0%; height: 1px; background: var(--gold);
+    transition: width 0.4s ease;
+  }
+  .email-link:hover { text-decoration: none; }
+  .email-link:hover .fill { width: 100%; }
+  .email-link:hover .arrow { transform: translate(5px, -5px); }
+
+  .stamp { margin-top: 40px; font-family: var(--mono); font-size: 11px; color: var(--text-dim); letter-spacing: 0.06em; }
+
+  @media (max-width: 480px) {
+    .title-block-row { grid-template-columns: 100px 1fr; }
+    .legend li { grid-template-columns: 130px 1fr; }
+    .legend .status { grid-column: 1 / -1; }
+    .register { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid" id="bgGrid"></div>
+<div class="bg-vignette"></div>
+<div class="bg-noise"></div>
+<div class="glow-cursor" id="glowCursor"></div>
+
+<div class="register tl"></div>
+<div class="register tr"></div>
+<div class="register bl"></div>
+<div class="register br"></div>
+
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="eyebrow">Self Introduction</div>
+      <h1>設計図を引く仕事から、<br>プロダクトを<span class="accent">つくる</span>仕事へ。</h1>
+      <p class="lede">
+        Yuki Sato です。プラント設計、建設・不動産業界の社内システム/Web開発、
+        フリーランスでのDX支援を経て、Webエンジニアとしての専門性をさらに高めています。
+      </p>
+
+      <div class="title-block">
+        <div class="title-block-row"><div class="label">Name</div><div class="value">Yuki Sato</div></div>
+        <div class="title-block-row"><div class="label">Status</div><div class="value">実務経験あり / スキル強化中</div></div>
+        <div class="title-block-row"><div class="label">Rev.</div><div class="value">v0.4 — デザイン改訂版</div></div>
+      </div>
+    </div>
+
+    <div class="compass-wrap">
+      <svg class="compass" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="92" fill="none" stroke="#29496b" stroke-width="1"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#29496b" stroke-width="1"/>
+        <circle cx="100" cy="100" r="48" fill="none" stroke="#d1a355" stroke-width="1" opacity="0.6"/>
+        <g stroke="#29496b" stroke-width="1">
+          <line x1="100" y1="8" x2="100" y2="24"/>
+          <line x1="100" y1="176" x2="100" y2="192"/>
+          <line x1="8" y1="100" x2="24" y2="100"/>
+          <line x1="176" y1="100" x2="192" y2="100"/>
+        </g>
+        <line class="needle-a" x1="100" y1="100" x2="100" y2="20" stroke="#d1a355" stroke-width="2"/>
+        <line class="needle-b" x1="100" y1="100" x2="150" y2="140" stroke="#6fa3cf" stroke-width="2"/>
+        <circle cx="100" cy="100" r="4" fill="#d1a355"/>
+      </svg>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-head"><span class="section-num">01</span><h2>経歴</h2></div>
+    <div class="timeline">
+
+      <div class="t-item">
+        <div class="t-period">2015 — 2022</div>
+        <div class="t-role">プラント設計エンジニア</div>
+        <div class="t-desc">
+          化学プラント・火力発電・水処理設備等の機械・設備設計に従事。
+          AutoCAD/JW-CADによる図面作成と並行し、設計データ処理・CAD操作を
+          自動化するツールを自ら開発。
+        </div>
+        <div class="t-stack"><span>AutoCAD</span><span>JW-CAD</span><span>Python</span><span>AutoLISP</span><span>C# / .NET</span></div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-period">2022 — 2024</div>
+        <div class="t-role">建設・不動産会社 / 社内SE</div>
+        <div class="t-desc">
+          現場ヒアリングをもとに社内向け顧客・案件管理システムを構築・運用。
+          自社不動産Webサイトの企画からコーディング・CMS構築・公開後の運用まで担当。
+        </div>
+        <div class="t-stack"><span>Java</span><span>JavaScript</span><span>HTML / CSS</span><span>WordPress</span></div>
+      </div>
+
+      <div class="t-item">
+        <div class="t-period">2024 — 現在</div>
+        <div class="t-role">フリーランス / DX・業務改善支援</div>
+        <div class="t-desc">
+          建設・不動産業界を中心に、業務システム開発、Webサイト構築、
+          ITツール導入支援を通じたDX推進を行っている。
+        </div>
+        <div class="t-stack"><span>Java</span><span>JavaScript</span><span>WordPress</span><span>DX推進</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">02</span><h2>現在強化しているスキル</h2></div>
+    <ul class="legend">
+      <li><span class="name">JavaScript(基礎の再構築)</span><span class="bar"><span style="--fill: 55%;"></span></span><span class="status">学習中</span></li>
+      <li><span class="name">React</span><span class="bar"><span style="--fill: 10%;"></span></span><span class="status">これから</span></li>
+      <li><span class="name">Node.js / Express</span><span class="bar"><span style="--fill: 15%;"></span></span><span class="status">これから</span></li>
+      <li><span class="name">Git / GitHub</span><span class="bar"><span style="--fill: 40%;"></span></span><span class="status">使い始めた</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="section-num">03</span><h2>現在作っているもの</h2></div>
+    <div class="project-card">
+      <span class="tag">In Progress</span>
+      <h3>AI議事録・タスク自動抽出ツール</h3>
+      <p>
+        会議の音声・テキストから要約とタスクを自動で抽出するツール。
+        クラウドAPIの利用料をかけず、ブラウザの音声認識とローカルで動くAIだけで完結する構成に挑戦中。
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="section-head"><span class="section-num">04</span><h2>連絡先</h2></div>
+    <a class="email-link" href="mailto:your-email@example.com">
+      your-email@example.com <span class="arrow">↗</span>
+      <span class="fill"></span>
+    </a>
+    <p class="stamp">Drafted &amp; built by Yuki Sato — 経歴・実績は随時更新</p>
+  </footer>
+
+</div>
+
+<script>
+  const sections = document.querySelectorAll('section');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    sections.forEach(s => io.observe(s));
+  } else {
+    sections.forEach(s => s.classList.add('in-view'));
+  }
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced && window.matchMedia('(hover: hover)').matches) {
+    const glow = document.getElementById('glowCursor');
+    const grid = document.getElementById('bgGrid');
+    window.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+      const dx = (e.clientX / window.innerWidth - 0.5) * 10;
+      const dy = (e.clientY / window.innerHeight - 0.5) * 10;
+      grid.style.transform = `translate(${dx}px, ${dy}px)`;
+    });
+  }
+</script>
+
+</body>
+</html>
