@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>佐藤 雄貴</title>
+<title>Yuki Sato</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@600;700&display=swap" rel="stylesheet">
@@ -213,6 +213,7 @@
   .legend .status { color: var(--text-dim); font-size: 11px; white-space: nowrap; }
 
   .project-card {
+    display: block;
     border: 1px solid var(--ink-line); padding: 30px; margin-top: 8px; position: relative;
     background: linear-gradient(135deg, rgba(209,163,85,0.05), transparent 60%);
     transition: border-color 0.3s ease, transform 0.3s ease;
@@ -222,7 +223,16 @@
     display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
     color: var(--ink); background: var(--gold); padding: 3px 9px; text-transform: uppercase; margin-bottom: 14px;
   }
-  .project-card h3 { font-family: var(--serif); font-weight: 700; font-size: 18px; color: var(--text-light); margin-bottom: 10px; }
+  .project-card h3 {
+    font-family: var(--serif); font-weight: 700; font-size: 18px; color: var(--text-light); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .project-card h3 .arrow {
+    font-family: var(--mono); font-size: 14px; color: var(--gold);
+    transition: transform 0.25s ease;
+  }
+  .project-card:hover h3 .arrow { transform: translate(3px, -3px); }
+  .project-card p { margin: 0; }
 
   footer { padding: 56px 0 88px; border-top: 1px solid var(--ink-line); opacity: 1; transform: none; }
   .email-link {
@@ -275,14 +285,14 @@
       <div class="eyebrow">Self Introduction</div>
       <h1>設計図を引く仕事から、<br>プロダクトを<span class="accent">つくる</span>仕事へ。</h1>
       <p class="lede">
-        佐藤 雄貴 です。プラント設計、建設・不動産業界の社内システム/Web開発、
+        Yuki Sato です。プラント設計、建設・不動産業界の社内システム/Web開発、
         フリーランスでのDX支援を経て、Webエンジニアとしての専門性をさらに高めています。
       </p>
 
       <div class="title-block">
-        <div class="title-block-row"><div class="label">Name</div><div class="value">佐藤 雄貴</div></div>
+        <div class="title-block-row"><div class="label">Name</div><div class="value">Yuki Sato</div></div>
         <div class="title-block-row"><div class="label">Status</div><div class="value">実務経験あり / スキル強化中</div></div>
-        <div class="title-block-row"><div class="label">Rev.</div><div class="value">v0.4 — デザイン改訂版</div></div>
+        <div class="title-block-row"><div class="label">Rev.</div><div class="value">v0.5 — リンク追加版</div></div>
       </div>
     </div>
 
@@ -345,23 +355,24 @@
   <section>
     <div class="section-head"><span class="section-num">02</span><h2>現在強化しているスキル</h2></div>
     <ul class="legend">
-      <li><span class="name">JavaScript(基礎の再構築)</span><span class="bar"><span style="--fill: 55%;"></span></span><span class="status">学習中</span></li>
-      <li><span class="name">React</span><span class="bar"><span style="--fill: 10%;"></span></span><span class="status">これから</span></li>
-      <li><span class="name">Node.js / Express</span><span class="bar"><span style="--fill: 15%;"></span></span><span class="status">これから</span></li>
-      <li><span class="name">Git / GitHub</span><span class="bar"><span style="--fill: 40%;"></span></span><span class="status">使い始めた</span></li>
+      <li><span class="name">JavaScript(基礎の再構築)</span><span class="bar"><span style="--fill: 65%;"></span></span><span class="status">習得中</span></li>
+      <li><span class="name">React</span><span class="bar"><span style="--fill: 40%;"></span></span><span class="status">実装経験あり</span></li>
+      <li><span class="name">Node.js / Express</span><span class="bar"><span style="--fill: 45%;"></span></span><span class="status">実装経験あり</span></li>
+      <li><span class="name">Git / GitHub</span><span class="bar"><span style="--fill: 55%;"></span></span><span class="status">使いこなし中</span></li>
     </ul>
   </section>
 
   <section>
     <div class="section-head"><span class="section-num">03</span><h2>現在作っているもの</h2></div>
-    <div class="project-card">
+    <a class="project-card" href="https://github.com/yukisatodev/meeting-notes" target="_blank" rel="noopener">
       <span class="tag">In Progress</span>
-      <h3>AI議事録・タスク自動抽出ツール</h3>
+      <h3>AI議事録・タスク自動抽出ツール <span class="arrow">↗</span></h3>
       <p>
         会議の音声・テキストから要約とタスクを自動で抽出するツール。
         クラウドAPIの利用料をかけず、ブラウザの音声認識とローカルで動くAIだけで完結する構成に挑戦中。
+        HTML/CSS/JS版とReact版の両方を実装し、GitHubで公開中。
       </p>
-    </div>
+    </a>
   </section>
 
   <footer>
