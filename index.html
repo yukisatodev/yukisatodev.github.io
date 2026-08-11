@@ -25,7 +25,7 @@
     --maxw:1080px;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth; scroll-padding-top:88px;}
+  html{scroll-behavior:smooth;}
   body{
     margin:0; background:var(--bg); color:var(--ink);
     font-family:'Noto Sans JP',sans-serif; font-weight:300;
@@ -47,15 +47,6 @@
   .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s ease; }
   .reveal.show{ opacity:1; transform:translateY(0); }
   @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
-
-  /* skip link */
-  .skip-link{
-    position:fixed; top:-60px; left:16px; z-index:200;
-    background:var(--accent); color:#0B0D12; font-weight:700;
-    padding:12px 18px; border-radius:4px; text-decoration:none; font-size:13px;
-    transition: top .2s ease;
-  }
-  .skip-link:focus{ top:16px; }
 
   /* nav */
   nav{
@@ -81,7 +72,6 @@
     transition: color .25s ease;
   }
   .nav-links a:hover{ color:var(--accent); }
-  .nav-links a.active{ color:var(--accent); }
   #langToggle{
     background:transparent; border:1px solid var(--line-strong); color:var(--ink);
     font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em;
@@ -89,41 +79,7 @@
   }
   #langToggle:hover{ border-color:var(--accent); color:var(--accent); }
   #langToggle:focus-visible, a:focus-visible, button:focus-visible{ outline:2px solid var(--steel); outline-offset:2px; }
-
-  /* mobile nav toggle */
-  .nav-toggle{
-    display:none; background:transparent; border:1px solid var(--line-strong);
-    border-radius:8px; padding:9px 11px; cursor:pointer; z-index:66; position:relative;
-  }
-  .nav-toggle .bar{
-    display:block; width:18px; height:1.5px; background:var(--ink); margin:4px 0;
-    transition: transform .25s ease, opacity .25s ease;
-  }
-  .nav-toggle[aria-expanded="true"] .bar:nth-child(1){ transform:translateY(5.5px) rotate(45deg); }
-  .nav-toggle[aria-expanded="true"] .bar:nth-child(2){ opacity:0; }
-  .nav-toggle[aria-expanded="true"] .bar:nth-child(3){ transform:translateY(-5.5px) rotate(-45deg); }
-
-  .nav-scrim{
-    position:fixed; inset:0; background:rgba(5,6,9,0.55); z-index:59;
-    opacity:0; pointer-events:none; transition:opacity .3s ease;
-  }
-  .nav-scrim.show{ opacity:1; pointer-events:auto; }
-
-  @media (max-width:760px){
-    .nav-toggle{ display:block; }
-    .nav-links{
-      position:fixed; top:0; right:0; height:100vh; width:min(78vw,320px);
-      background:rgba(11,13,18,0.98); backdrop-filter:blur(10px);
-      border-left:1px solid var(--line-strong);
-      flex-direction:column; align-items:flex-start; justify-content:flex-start;
-      gap:4px; padding:100px 30px 30px;
-      transform:translateX(100%); transition:transform .3s ease;
-      z-index:65; overflow-y:auto;
-    }
-    .nav-links.open{ transform:translateX(0); }
-    .nav-links a{ font-size:14px; padding:13px 0; width:100%; border-bottom:1px solid var(--line); }
-    #langToggle{ margin-top:16px; }
-  }
+  @media (max-width:760px){ .nav-links a:not(.lang-btn-wrap){display:none;} }
 
   /* hero */
   .hero{
@@ -442,33 +398,14 @@
     100%{ box-shadow:0 0 0 0 rgba(143,215,164,0); }
   }
   @media (max-width:600px){ .status-badge{ display:none; } }
-
-  /* back to top */
-  .to-top{
-    position:fixed; bottom:26px; left:26px; z-index:55;
-    width:44px; height:44px; border-radius:50%;
-    background:rgba(18,21,29,0.85); backdrop-filter:blur(6px);
-    border:1px solid var(--line-strong); color:var(--ink);
-    font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center;
-    opacity:0; visibility:hidden; pointer-events:none; transform:translateY(8px);
-    transition:opacity .25s ease, transform .25s ease, border-color .25s ease, visibility .25s ease;
-  }
-  .to-top.show{ opacity:1; visibility:visible; pointer-events:auto; transform:translateY(0); }
-  .to-top:hover{ border-color:var(--accent); color:var(--accent); }
-  @media (max-width:600px){ .to-top{ left:16px; bottom:16px; width:40px; height:40px; } }
 </style>
 </head>
 <body>
 
-<a class="skip-link" href="#heroSection"><span class="ja">本文へスキップ</span><span class="en">Skip to content</span></a>
-
 <div class="progress-line" id="progressLine"></div>
 <nav>
   <div class="brand"><span class="mark"></span>Satolab.</div>
-  <button id="navToggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Menu">
-    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-  </button>
-  <div class="nav-links" id="navLinks">
+  <div class="nav-links">
     <a href="#about"><span class="ja">About</span><span class="en">About</span></a>
     <a href="#works"><span class="ja">Works</span><span class="en">Works</span></a>
     <a href="#skills"><span class="ja">Skills</span><span class="en">Skills</span></a>
@@ -478,7 +415,6 @@
     <button id="langToggle" class="lang-btn-wrap">EN</button>
   </div>
 </nav>
-<div class="nav-scrim" id="navScrim"></div>
 
 <header class="hero" id="heroSection">
   <div class="glow" id="heroGlow"></div>
@@ -571,9 +507,31 @@
         <div class="stack"><span>React</span><span>FastAPI</span><span>Python</span><span>SQLite</span><span>reportlab</span></div>
         <div class="links"><a href="https://effulgent-dodol-5d27d4.netlify.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="ja">→ サイトを見る</span><span class="en">→ Visit site</span></a></div>
       </div>
+      <div class="work-card reveal" data-modal-target="modalNedaka" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View details of Nedaka">
+        <span class="badge"><span class="ja">個人開発 / 稼働中</span><span class="en">Personal / Live</span></span>
+        <h3><span class="ja">Nedaka.（睡眠トレーダー）</span><span class="en">Nedaka. — Sleep Trader</span></h3>
+        <p class="ja">毎日の睡眠を株価チャートに見立てて記録するツール。ローソク足・移動平均線で推移を可視化し、アナリスト風コメントで一言添えます。ログイン不要のデモも用意しています。</p>
+        <p class="en">Logs your sleep as if it were a stock — candlesticks, moving averages, and analyst-style commentary on the trend. Includes a no-login demo.</p>
+        <div class="stack"><span>React</span><span>FastAPI</span><span>JWT</span><span>SQLite</span><span>reportlab</span></div>
+        <div class="links"><a href="https://gregarious-pony-811702.netlify.app/demo" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="ja">→ デモを見る</span><span class="en">→ View demo</span></a></div>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="modal-overlay" id="modalNedaka" hidden role="dialog" aria-modal="true" aria-labelledby="modalNedakaTitle">
+  <div class="modal-panel">
+    <button class="modal-close" type="button" aria-label="Close">×</button>
+    <div class="eyebrow" style="margin-bottom:14px;"><span class="ja">制作物 03</span><span class="en">WORK 03</span></div>
+    <h3 class="modal-title" id="modalNedakaTitle"><span class="ja">Nedaka.（睡眠トレーダー）</span><span class="en">Nedaka. — Sleep Trader</span></h3>
+    <p class="modal-desc"><span class="ja">毎日の就寝・起床時刻と中途覚醒回数を記録すると、前日のスコアを起点に株価のようなローソク足（始値・高値・安値・終値）へ変換し、7日/30日移動平均線と合わせて表示します。直近の傾向から「強気相場」「弱気相場」のようなアナリスト風コメントも自動生成します。</span><span class="en">Log your bedtime, wake time, and interruptions each day, and it turns into stock-style OHLC candles (building on the previous day's score), plotted with 7-day and 30-day moving averages. An analyst-style commentary ("bull market", "bear market") is generated automatically from the recent trend.</span></p>
+    <p class="modal-desc"><span class="ja">ログイン不要のデモページで、すぐに中身を確認できます。実際に記録したい場合はアカウント登録（JWT認証）が必要です。決算レポートはPDFでダウンロードできます。</span><span class="en">A no-login demo page lets you see it in action immediately. Recording your own data requires an account (JWT auth). A "decision report" can be downloaded as a PDF.</span></p>
+    <h4 class="modal-subhead"><span class="ja">使用言語など</span><span class="en">Stack</span></h4>
+    <p class="modal-stack">React / Vite / FastAPI / Python / SQLAlchemy / SQLite / JWT (python-jose) / reportlab / Netlify / Render</p>
+    <h4 class="modal-subhead"><span class="ja">リンク</span><span class="en">Link</span></h4>
+    <p class="modal-stack"><a href="https://gregarious-pony-811702.netlify.app/demo" target="_blank" rel="noopener" style="color:var(--accent);">gregarious-pony-811702.netlify.app/demo →</a></p>
+  </div>
+</div>
 
 <div class="modal-overlay" id="modalSiteCheck" hidden role="dialog" aria-modal="true" aria-labelledby="modalSiteCheckTitle">
   <div class="modal-panel">
@@ -861,74 +819,13 @@
   <span class="ja">稼働中 — 学習中</span><span class="en">ACTIVE — LEARNING</span>
 </div>
 
-<button id="toTop" class="to-top" type="button" aria-label="Back to top">
-  <span aria-hidden="true">↑</span>
-</button>
-
 <script>
   const btn = document.getElementById('langToggle');
-  const savedLang = localStorage.getItem('satolab-lang');
-  if (savedLang === 'en') {
-    document.body.classList.add('lang-en');
-    btn.textContent = 'JA';
-    document.documentElement.lang = 'en';
-  }
   btn.addEventListener('click', () => {
     const isEn = document.body.classList.toggle('lang-en');
     btn.textContent = isEn ? 'JA' : 'EN';
     document.documentElement.lang = isEn ? 'en' : 'ja';
-    localStorage.setItem('satolab-lang', isEn ? 'en' : 'ja');
   });
-
-  // mobile nav drawer
-  (function mobileNav(){
-    const toggle = document.getElementById('navToggle');
-    const links = document.getElementById('navLinks');
-    const scrim = document.getElementById('navScrim');
-    if (!toggle || !links || !scrim) return;
-    function closeNav(){
-      toggle.setAttribute('aria-expanded', 'false');
-      links.classList.remove('open');
-      scrim.classList.remove('show');
-      document.body.style.overflow = '';
-    }
-    function openNav(){
-      toggle.setAttribute('aria-expanded', 'true');
-      links.classList.add('open');
-      scrim.classList.add('show');
-      document.body.style.overflow = 'hidden';
-    }
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      if (isOpen) closeNav(); else openNav();
-    });
-    scrim.addEventListener('click', closeNav);
-    links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNav(); });
-    window.addEventListener('resize', () => { if (window.innerWidth > 760) closeNav(); });
-  })();
-
-  // active section highlight in nav
-  (function activeNav(){
-    const ids = ['about', 'works', 'skills', 'playground', 'profile', 'contact'];
-    const linkMap = {};
-    ids.forEach(id => {
-      const link = document.querySelector('.nav-links a[href="#' + id + '"]');
-      if (link) linkMap[id] = link;
-    });
-    const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
-    if (!sections.length) return;
-    const activeObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const link = linkMap[entry.target.id];
-        if (!link) return;
-        Object.values(linkMap).forEach(a => a.classList.remove('active'));
-        link.classList.add('active');
-      });
-    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-    sections.forEach(s => activeObserver.observe(s));
-  })();
 
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); } });
@@ -1045,12 +942,7 @@
 
   // work-card modal (text-only preview on click)
   (function workModal(){
-    let lastTrigger = null;
-    function getFocusable(modal){
-      return Array.from(modal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'));
-    }
-    function openModal(modal, trigger){
-      lastTrigger = trigger || document.activeElement;
+    function openModal(modal){
       modal.hidden = false;
       document.body.style.overflow = 'hidden';
       const closeBtn = modal.querySelector('.modal-close');
@@ -1059,47 +951,24 @@
     function closeModal(modal){
       modal.hidden = true;
       document.body.style.overflow = '';
-      if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
-      lastTrigger = null;
     }
     document.querySelectorAll('[data-modal-target]').forEach(trigger => {
       const modal = document.getElementById(trigger.dataset.modalTarget);
       if (!modal) return;
-      trigger.addEventListener('click', () => openModal(modal, trigger));
+      trigger.addEventListener('click', () => openModal(modal));
       trigger.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(modal, trigger); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(modal); }
       });
     });
     document.querySelectorAll('.modal-overlay').forEach(overlay => {
       overlay.querySelector('.modal-close').addEventListener('click', () => closeModal(overlay));
       overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(overlay); });
-      overlay.addEventListener('keydown', e => {
-        if (e.key !== 'Tab') return;
-        const focusable = getFocusable(overlay);
-        if (!focusable.length) return;
-        const first = focusable[0], last = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-      });
     });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         document.querySelectorAll('.modal-overlay:not([hidden])').forEach(closeModal);
       }
     });
-  })();
-
-  // back to top
-  (function backToTop(){
-    const topBtn = document.getElementById('toTop');
-    if (!topBtn) return;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const toggle = () => { topBtn.classList.toggle('show', window.scrollY > window.innerHeight * 0.8); };
-    window.addEventListener('scroll', toggle, { passive: true });
-    topBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
-    });
-    toggle();
   })();
 
   // playground: mini blueprint sketch tool
