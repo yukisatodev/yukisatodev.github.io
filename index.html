@@ -203,6 +203,18 @@
   .sec-title{ font-size:clamp(28px,4vw,42px); margin-bottom:44px; }
 
   /* about */
+  .about-illustration{
+    margin:0 0 44px; border:1px solid var(--line-strong); overflow:hidden; position:relative;
+  }
+  .about-illustration img{ display:block; width:100%; height:auto; }
+  .about-illustration::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 60%, rgba(11,13,18,0.5) 100%);
+  }
+  .thoughts-illustration{
+    max-width:420px; margin:0 0 40px; border:1px solid var(--line); overflow:hidden; opacity:0.88;
+  }
+  .thoughts-illustration img{ display:block; width:100%; height:auto; }
   .about-grid{ display:grid; grid-template-columns:180px 1fr; gap:60px; align-items:start; }
   @media (max-width:680px){ .about-grid{grid-template-columns:1fr;} }
   .monogram{
@@ -227,11 +239,18 @@
   /* works */
   .works-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
   .work-card{
-    background:var(--panel); border:1px solid var(--line); padding:28px 26px;
+    background:var(--panel); border:1px solid var(--line); padding:0 0 26px;
     transition: border-color .3s ease, transform .15s ease;
-    will-change: transform;
+    will-change: transform; overflow:hidden;
   }
   .work-card:hover{ border-color:var(--accent); transform:translateY(-4px); }
+  .work-thumb{ width:100%; aspect-ratio:4/3; overflow:hidden; border-bottom:1px solid var(--line); }
+  .work-thumb img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .work-card .badge{ margin:22px 26px 0; }
+  .work-card h3{ margin-left:26px; margin-right:26px; }
+  .work-card p{ margin-left:26px; margin-right:26px; }
+  .work-card .stack{ margin-left:26px; margin-right:26px; }
+  .work-card .links{ margin-left:26px; margin-right:26px; }
   .work-card .badge{
     font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.08em; color:var(--steel);
     border:1px solid rgba(110,147,232,0.4); padding:4px 10px; border-radius:999px; display:inline-block; margin-bottom:16px;
@@ -456,6 +475,9 @@
   <div class="sheet">
     <div class="eyebrow"><span class="n">01</span><span class="ja">ABOUT ME</span><span class="en">ABOUT ME</span></div>
     <h2 class="sec-title reveal"><span class="ja">図面を引く人から、<br>つくる人へ。</span><span class="en">From drafting<br>to building.</span></h2>
+    <figure class="about-illustration reveal">
+      <img src="hero-illustration.png" alt="">
+    </figure>
     <div class="about-grid reveal">
       <div class="monogram">S</div>
       <div class="about-text">
@@ -492,6 +514,7 @@
     <h2 class="sec-title reveal"><span class="ja">制作物</span><span class="en">Selected Works</span></h2>
     <div class="works-grid">
       <div class="work-card reveal" data-modal-target="modalSite" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View details of this portfolio site">
+        <div class="work-thumb"><img src="hero-illustration.png" alt=""></div>
         <span class="badge"><span class="ja">Meta / 稼働中</span><span class="en">Meta / Live</span></span>
         <h3><span class="ja">このポートフォリオサイト</span><span class="en">This Portfolio Site</span></h3>
         <p class="ja">フレームワークなしで一から設計・実装した、このサイト自体です。SVGで座標計算から描いたレーダーチャート、Canvas APIのドラッグ描画ツール、Intersection Observerによるスクロール演出などを詰め込んでいます。</p>
@@ -500,6 +523,7 @@
         <div class="links"><span class="ja">→ 詳しく見る</span><span class="en">→ View details</span></div>
       </div>
       <div class="work-card reveal" data-modal-target="modalSiteCheck" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View details of the Site Check tool">
+        <div class="work-thumb"><img src="sitecheck-thumb.png" alt=""></div>
         <span class="badge"><span class="ja">個人開発 / 稼働中</span><span class="en">Personal / Live</span></span>
         <h3><span class="ja">Site Check（Webサイト診断ツール）</span><span class="en">Site Check — Website Diagnostic Tool</span></h3>
         <p class="ja">URLを入れると、SEO・セキュリティ・パフォーマンスの基本項目を診断し、前回結果との差分・履歴つきでレポートするツール。診断結果はPDFでもダウンロードできます。</p>
@@ -508,6 +532,7 @@
         <div class="links"><a href="https://effulgent-dodol-5d27d4.netlify.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="ja">→ サイトを見る</span><span class="en">→ Visit site</span></a></div>
       </div>
       <div class="work-card reveal" data-modal-target="modalNedaka" tabindex="0" role="button" aria-haspopup="dialog" aria-label="View details of Nedaka">
+        <div class="work-thumb"><img src="nedaka-thumb.png" alt=""></div>
         <span class="badge"><span class="ja">個人開発 / 稼働中</span><span class="en">Personal / Live</span></span>
         <h3><span class="ja">Nedaka.（睡眠トレーダー）</span><span class="en">Nedaka. — Sleep Trader</span></h3>
         <p class="ja">毎日の睡眠を株価チャートに見立てて記録するツール。ローソク足・移動平均線で推移を可視化し、アナリスト風コメントで一言添えます。ログイン不要のデモも用意しています。</p>
@@ -680,6 +705,9 @@
   <div class="sheet">
     <div class="eyebrow"><span class="n">05</span><span class="ja">PROFILE</span><span class="en">PROFILE</span></div>
     <h2 class="sec-title reveal"><span class="ja">これまでの歩み</span><span class="en">Timeline</span></h2>
+    <figure class="about-illustration reveal">
+      <img src="profile-illustration.png" alt="">
+    </figure>
 
     <div class="timeline reveal">
       <div class="t-item">
@@ -739,6 +767,9 @@
   <div class="sheet">
     <div class="eyebrow"><span class="n">06</span><span class="ja">THOUGHTS</span><span class="en">THOUGHTS</span></div>
     <h2 class="sec-title reveal"><span class="ja">感謝と、これから</span><span class="en">Gratitude, and What's Next</span></h2>
+    <figure class="thoughts-illustration reveal">
+      <img src="thoughts-illustration.png" alt="">
+    </figure>
     <div class="thoughts-text reveal">
       <p class="ja">日々の忙しさについ忘れてしまいがちですが、今の私があるのは色んな人たちのサポートのおかげです。退職の際に応援してくれた人、技術的に未熟な私にもお仕事を紹介してくださるエージェント、スキルを磨ける環境で働かせてくださったクライアントに、本当に心から感謝しています。</p>
       <p class="ja">様々なWebサービスに触れて人生が変わる体験をしたように、今後は消費するだけでなく、体験価値を届けられるようなエンジニアになりたい。私自身が抱えている課題や周りの身近な人が抱えている問題をエンジニアリングで解決できるようになりたいと考えています。</p>
@@ -763,12 +794,12 @@
     <div class="about-grid reveal" style="grid-template-columns:1fr;">
       <div class="about-text">
         <p class="ja">このポートフォリオは、フリーランスとしてWebエンジニアの実務を積み上げていく過程の一部として、自分の手で設計・実装しました。デザインとコードを何度も見直しながら、少しずつ機能を追加しています。</p>
-        <p class="ja">フレームワークは使わず、HTML・CSS・素のJavaScriptのみで構築。スキルシートのレーダーチャートは座標計算から自前で描画したSVG、上のCanvasツールはCanvas APIで実装、スクロール演出はIntersection Observer APIを使っています。ビルドツールなしで完結する、シンプルな構成です。</p>
+        <p class="ja">フレームワークは使わず、HTML・CSS・TypeScriptのみで構築。スキルシートのレーダーチャートは座標計算から自前で描画したSVG、上のCanvasツールはCanvas APIで実装、スクロール演出はIntersection Observer APIを使っています。TypeScriptで書いたコードをコンパイルし、実際にサイトへ埋め込むJSファイルとして出力する、ビルドツールなしで完結するシンプルな構成です。</p>
         <p class="en">I designed and built this portfolio myself, as part of the process of building real, hands-on experience as a freelance web engineer — revising the design and code repeatedly, adding features along the way.</p>
-        <p class="en">No framework — just HTML, CSS, and vanilla JavaScript. The skill radar chart is hand-computed SVG, the canvas tool above runs on the Canvas API, and scroll reveals use the Intersection Observer API. No build tooling required.</p>
+        <p class="en">No framework — just HTML, CSS, and TypeScript. The skill radar chart is hand-computed SVG, the canvas tool above runs on the Canvas API, and scroll reveals use the Intersection Observer API. The TypeScript source is compiled to the plain JS actually embedded in the site — no other build tooling required.</p>
         <div class="tag-row">
           <span class="tag">HTML5</span><span class="tag">CSS3 (Grid / Custom Properties)</span>
-          <span class="tag">JavaScript (ES6+)</span><span class="tag">SVG</span>
+          <span class="tag">TypeScript</span><span class="tag">SVG</span>
           <span class="tag">Canvas API</span><span class="tag">Intersection Observer</span>
           <span class="tag">No framework</span>
         </div>
@@ -820,224 +851,307 @@
 </div>
 
 <script>
-  const btn = document.getElementById('langToggle');
-  btn.addEventListener('click', () => {
-    const isEn = document.body.classList.toggle('lang-en');
-    btn.textContent = isEn ? 'JA' : 'EN';
-    document.documentElement.lang = isEn ? 'en' : 'ja';
-  });
-
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('show'); } });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  const progressLine = document.getElementById('progressLine');
-  window.addEventListener('scroll', () => {
-    const h = document.documentElement;
-    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
-    progressLine.style.width = scrolled + '%';
-  });
-
-  const hero = document.getElementById('heroSection');
-  const glow = document.getElementById('heroGlow');
-  if (hero && glow && window.matchMedia('(pointer:fine)').matches) {
+"use strict";
+/**
+ * Satolab. portfolio site — interactivity.
+ * TypeScriptで書き、コンパイルしたJSをindex.htmlに埋め込んで使用している。
+ */
+// ---------- 言語切り替え ----------
+function initLangToggle() {
+    const btn = document.getElementById('langToggle');
+    if (!btn)
+        return;
+    btn.addEventListener('click', () => {
+        const isEn = document.body.classList.toggle('lang-en');
+        btn.textContent = isEn ? 'JA' : 'EN';
+        document.documentElement.lang = isEn ? 'en' : 'ja';
+    });
+}
+// ---------- スクロールで要素をフェードイン ----------
+function initRevealOnScroll() {
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting)
+                entry.target.classList.add('show');
+        });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+}
+// ---------- 上部のスクロール進捗バー ----------
+function initProgressLine() {
+    const progressLine = document.getElementById('progressLine');
+    if (!progressLine)
+        return;
+    window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        const scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+        progressLine.style.width = `${scrolled}%`;
+    });
+}
+// ---------- ヒーローのカーソル追従グロー ----------
+function initHeroGlow() {
+    const hero = document.getElementById('heroSection');
+    const glow = document.getElementById('heroGlow');
+    if (!hero || !glow || !window.matchMedia('(pointer:fine)').matches)
+        return;
     hero.addEventListener('mousemove', (e) => {
-      const rect = hero.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      glow.style.left = x + '%';
-      glow.style.top = y + '%';
+        const rect = hero.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        glow.style.left = `${x}%`;
+        glow.style.top = `${y}%`;
     });
-  }
-
-  // terminal typewriter
-  const typeTarget = document.getElementById('typeTarget');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const termLines = [
-    '$ whoami',
-    'yuki_sato — design engineer -> web engineer',
-    '',
-    '$ cat skills.json',
-    '{',
-    '  "frontend": ["JavaScript", "React"],',
-    '  "backend": ["Python", "Java", "C#/.NET"],',
-    '  "tools": ["AutoCAD", "Git", "WordPress"]',
-    '}',
-    '',
-    '$ status --current',
-    'building. always.'
-  ];
-  if (typeTarget) {
+}
+// ---------- ターミナル風タイプライター ----------
+function initTerminalTypewriter(reduceMotion) {
+    const typeTarget = document.getElementById('typeTarget');
+    if (!typeTarget)
+        return;
+    const termLines = [
+        '$ whoami',
+        'yuki_sato — design engineer -> web engineer',
+        '',
+        '$ cat skills.json',
+        '{',
+        '  "frontend": ["JavaScript", "React", "TypeScript"],',
+        '  "backend": ["Python", "Java", "C#/.NET"],',
+        '  "tools": ["AutoCAD", "Git", "WordPress"]',
+        '}',
+        '',
+        '$ status --current',
+        'building. always.',
+    ];
     if (reduceMotion) {
-      typeTarget.textContent = termLines.join('\n');
-    } else {
-      let li = 0, ci = 0;
-      const typeChar = () => {
-        if (li >= termLines.length) return;
-        const line = termLines[li];
-        if (ci < line.length) {
-          typeTarget.textContent += line[ci];
-          ci++;
-          setTimeout(typeChar, 16 + Math.random() * 24);
-        } else {
-          typeTarget.textContent += '\n';
-          li++; ci = 0;
-          setTimeout(typeChar, 240);
-        }
-      };
-      setTimeout(typeChar, 900);
+        typeTarget.textContent = termLines.join('\n');
+        return;
     }
-  }
-
-  // tilt on work cards
-  if (window.matchMedia('(pointer:fine)').matches && !reduceMotion) {
-    document.querySelectorAll('.work-card').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const r = card.getBoundingClientRect();
-        const x = e.clientX - r.left, y = e.clientY - r.top;
-        const rx = ((y / r.height) - 0.5) * -7;
-        const ry = ((x / r.width) - 0.5) * 7;
-        card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-      });
-      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    let lineIndex = 0;
+    let charIndex = 0;
+    const typeChar = () => {
+        if (lineIndex >= termLines.length)
+            return;
+        const line = termLines[lineIndex];
+        if (charIndex < line.length) {
+            typeTarget.textContent += line[charIndex];
+            charIndex++;
+            setTimeout(typeChar, 16 + Math.random() * 24);
+        }
+        else {
+            typeTarget.textContent += '\n';
+            lineIndex++;
+            charIndex = 0;
+            setTimeout(typeChar, 240);
+        }
+    };
+    setTimeout(typeChar, 900);
+}
+// ---------- Worksカードの3Dチルト & マグネティックボタン ----------
+function initTiltAndMagnetic(reduceMotion) {
+    if (!window.matchMedia('(pointer:fine)').matches || reduceMotion)
+        return;
+    document.querySelectorAll('.work-card').forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+            const r = card.getBoundingClientRect();
+            const x = e.clientX - r.left;
+            const y = e.clientY - r.top;
+            const rx = (y / r.height - 0.5) * -7;
+            const ry = (x / r.width - 0.5) * 7;
+            card.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
     });
-
-    // magnetic buttons
-    document.querySelectorAll('.btn').forEach(btn => {
-      btn.addEventListener('mousemove', (e) => {
-        const r = btn.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width / 2;
-        const y = e.clientY - r.top - r.height / 2;
-        btn.style.transform = `translate(${x * 0.16}px, ${y * 0.4}px)`;
-      });
-      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+    document.querySelectorAll('.btn').forEach((btn) => {
+        btn.addEventListener('mousemove', (e) => {
+            const r = btn.getBoundingClientRect();
+            const x = e.clientX - r.left - r.width / 2;
+            const y = e.clientY - r.top - r.height / 2;
+            btn.style.transform = `translate(${x * 0.16}px, ${y * 0.4}px)`;
+        });
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = '';
+        });
     });
-  }
-
-  // activity heatmap (illustrative, seeded pseudo-random, ramping up in recent weeks)
-  (function buildHeatmap(){
+}
+// ---------- 学習アクティビティのヒートマップ(イメージ図) ----------
+function buildHeatmap() {
     const el = document.getElementById('heatmap');
-    if (!el) return;
+    if (!el)
+        return;
     let seed = 42;
-    const rand = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    const rand = () => {
+        seed = (seed * 9301 + 49297) % 233280;
+        return seed / 233280;
+    };
     const weeks = 53;
     for (let w = 0; w < weeks; w++) {
-      for (let d = 0; d < 7; d++) {
-        const recentBoost = w / weeks; // later weeks = more activity, tells a "ramping up" story
-        const r = rand();
-        let level = 0;
-        const p = r * (0.4 + recentBoost * 0.9);
-        if (p > 0.78) level = 4;
-        else if (p > 0.58) level = 3;
-        else if (p > 0.38) level = 2;
-        else if (p > 0.2) level = 1;
-        const cell = document.createElement('div');
-        cell.className = 'cell';
-        cell.setAttribute('data-l', level);
-        el.appendChild(cell);
-      }
+        for (let d = 0; d < 7; d++) {
+            const recentBoost = w / weeks;
+            const r = rand();
+            let level = 0;
+            const p = r * (0.4 + recentBoost * 0.9);
+            if (p > 0.78)
+                level = 4;
+            else if (p > 0.58)
+                level = 3;
+            else if (p > 0.38)
+                level = 2;
+            else if (p > 0.2)
+                level = 1;
+            const cell = document.createElement('div');
+            cell.className = 'cell';
+            cell.setAttribute('data-l', String(level));
+            el.appendChild(cell);
+        }
     }
-  })();
-
-  // work-card modal (text-only preview on click)
-  (function workModal(){
-    function openModal(modal){
-      modal.hidden = false;
-      document.body.style.overflow = 'hidden';
-      const closeBtn = modal.querySelector('.modal-close');
-      if (closeBtn) closeBtn.focus();
+}
+// ---------- Workカードのモーダル(テキストプレビュー) ----------
+function initWorkModal() {
+    function openModal(modal) {
+        modal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        const closeBtn = modal.querySelector('.modal-close');
+        closeBtn?.focus();
     }
-    function closeModal(modal){
-      modal.hidden = true;
-      document.body.style.overflow = '';
+    function closeModal(modal) {
+        modal.hidden = true;
+        document.body.style.overflow = '';
     }
-    document.querySelectorAll('[data-modal-target]').forEach(trigger => {
-      const modal = document.getElementById(trigger.dataset.modalTarget);
-      if (!modal) return;
-      trigger.addEventListener('click', () => openModal(modal));
-      trigger.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(modal); }
-      });
+    document.querySelectorAll('[data-modal-target]').forEach((trigger) => {
+        const targetId = trigger.dataset.modalTarget;
+        if (!targetId)
+            return;
+        const modal = document.getElementById(targetId);
+        if (!modal)
+            return;
+        trigger.addEventListener('click', () => openModal(modal));
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(modal);
+            }
+        });
     });
-    document.querySelectorAll('.modal-overlay').forEach(overlay => {
-      overlay.querySelector('.modal-close').addEventListener('click', () => closeModal(overlay));
-      overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(overlay); });
+    document.querySelectorAll('.modal-overlay').forEach((overlay) => {
+        overlay.querySelector('.modal-close')?.addEventListener('click', () => closeModal(overlay));
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay)
+                closeModal(overlay);
+        });
     });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.modal-overlay:not([hidden])').forEach(closeModal);
-      }
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal-overlay:not([hidden])').forEach(closeModal);
+        }
     });
-  })();
-
-  // playground: mini blueprint sketch tool
-  (function blueprintTool(){
+}
+// ---------- Playground: ミニ製図ツール ----------
+function initBlueprintTool() {
     const canvas = document.getElementById('blueprintCanvas');
-    if (!canvas) return;
+    if (!canvas)
+        return;
     const ctx = canvas.getContext('2d');
+    if (!ctx)
+        return;
     const GRID = 20;
     let lines = [];
     let current = null;
-
-    const snap = v => Math.round(v / GRID) * GRID;
-
-    function render(){
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = 'rgba(255,255,255,0.07)';
-      ctx.lineWidth = 1;
-      for (let x = 0; x <= canvas.width; x += GRID) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke(); }
-      for (let y = 0; y <= canvas.height; y += GRID) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke(); }
-
-      lines.forEach(l => {
-        ctx.strokeStyle = '#C9A15A'; ctx.lineWidth = 2;
-        ctx.beginPath(); ctx.moveTo(l.x1, l.y1); ctx.lineTo(l.x2, l.y2); ctx.stroke();
-        ctx.fillStyle = '#6E93E8';
-        [[l.x1, l.y1], [l.x2, l.y2]].forEach(([px, py]) => {
-          ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI * 2); ctx.fill();
+    const snap = (v) => Math.round(v / GRID) * GRID;
+    function render() {
+        if (!ctx)
+            return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+        ctx.lineWidth = 1;
+        for (let x = 0; x <= canvas.width; x += GRID) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, canvas.height);
+            ctx.stroke();
+        }
+        for (let y = 0; y <= canvas.height; y += GRID) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(canvas.width, y);
+            ctx.stroke();
+        }
+        lines.forEach((l) => {
+            ctx.strokeStyle = '#C9A15A';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(l.x1, l.y1);
+            ctx.lineTo(l.x2, l.y2);
+            ctx.stroke();
+            ctx.fillStyle = '#6E93E8';
+            [[l.x1, l.y1], [l.x2, l.y2]].forEach(([px, py]) => {
+                ctx.beginPath();
+                ctx.arc(px, py, 3, 0, Math.PI * 2);
+                ctx.fill();
+            });
         });
-      });
-
-      if (current) {
-        ctx.strokeStyle = 'rgba(201,161,90,0.6)'; ctx.lineWidth = 2; ctx.setLineDash([5, 5]);
-        ctx.beginPath(); ctx.moveTo(current.x1, current.y1); ctx.lineTo(current.x2, current.y2); ctx.stroke();
-        ctx.setLineDash([]);
-      }
+        if (current) {
+            ctx.strokeStyle = 'rgba(201,161,90,0.6)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(current.x1, current.y1);
+            ctx.lineTo(current.x2, current.y2);
+            ctx.stroke();
+            ctx.setLineDash([]);
+        }
     }
-
-    function getPos(e){
-      const r = canvas.getBoundingClientRect();
-      const cx = (e.clientX - r.left) * (canvas.width / r.width);
-      const cy = (e.clientY - r.top) * (canvas.height / r.height);
-      return { x: cx, y: cy };
+    function getPos(e) {
+        const r = canvas.getBoundingClientRect();
+        const cx = (e.clientX - r.left) * (canvas.width / r.width);
+        const cy = (e.clientY - r.top) * (canvas.height / r.height);
+        return { x: cx, y: cy };
     }
-
-    canvas.addEventListener('pointerdown', e => {
-      const p = getPos(e);
-      current = { x1: snap(p.x), y1: snap(p.y), x2: snap(p.x), y2: snap(p.y) };
-      canvas.setPointerCapture(e.pointerId);
-      render();
+    canvas.addEventListener('pointerdown', (e) => {
+        const p = getPos(e);
+        current = { x1: snap(p.x), y1: snap(p.y), x2: snap(p.x), y2: snap(p.y) };
+        canvas.setPointerCapture(e.pointerId);
+        render();
     });
-    canvas.addEventListener('pointermove', e => {
-      if (!current) return;
-      const p = getPos(e);
-      current.x2 = snap(p.x); current.y2 = snap(p.y);
-      render();
+    canvas.addEventListener('pointermove', (e) => {
+        if (!current)
+            return;
+        const p = getPos(e);
+        current.x2 = snap(p.x);
+        current.y2 = snap(p.y);
+        render();
     });
     canvas.addEventListener('pointerup', () => {
-      if (current) {
-        if (current.x1 !== current.x2 || current.y1 !== current.y2) lines.push(current);
-        current = null;
-        render();
-      }
+        if (current) {
+            if (current.x1 !== current.x2 || current.y1 !== current.y2)
+                lines.push(current);
+            current = null;
+            render();
+        }
     });
-
-    document.getElementById('undoBtn').addEventListener('click', () => { lines.pop(); render(); });
-    document.getElementById('clearBtn').addEventListener('click', () => { lines = []; render(); });
-
+    document.getElementById('undoBtn')?.addEventListener('click', () => {
+        lines.pop();
+        render();
+    });
+    document.getElementById('clearBtn')?.addEventListener('click', () => {
+        lines = [];
+        render();
+    });
     render();
-  })();
+}
+// ---------- 起動 ----------
+(function main() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    initLangToggle();
+    initRevealOnScroll();
+    initProgressLine();
+    initHeroGlow();
+    initTerminalTypewriter(reduceMotion);
+    initTiltAndMagnetic(reduceMotion);
+    buildHeatmap();
+    initWorkModal();
+    initBlueprintTool();
+})();
 </script>
-
 </body>
 </html>
