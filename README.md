@@ -33,6 +33,7 @@ yukisatodev.github.io/
 
 - 🖥️ このポートフォリオサイト自体
 - 🔍 [Site Check](https://github.com/yukisatodev/site-check-frontend-) — URLを入れるとSEO・セキュリティ・パフォーマンスを診断し、改善提案まで返すツール
+- 📈 [Nedaka.](https://github.com/yukisatodev/nedaka-frontend) — 睡眠記録を株価チャートに見立てて可視化するツール。ローソク足・移動平均線・アナリスト風コメントつき
 
 ## ローカルで確認する
 
