@@ -1,6 +1,6 @@
 # yukisatodev.github.io
 
-自己紹介・制作物をまとめたポートフォリオサイトです。フレームワークを使わず、HTML・CSS・vanilla JavaScriptのみで一から実装しています。
+自己紹介・制作物をまとめたポートフォリオサイトです。フレームワークを使わず、HTML・CSS・TypeScriptのみで一から実装しています。
 
 🔗 **公開URL**: https://yukisatodev.github.io/
 
@@ -12,18 +12,32 @@
 
 ```
 yukisatodev.github.io/
-  index.html    # メインページ(自己紹介・Works・スキル・年表・お問い合わせ)
-  thanks.html   # お問い合わせフォーム送信後の完了ページ
+  index.html               # メインページ(自己紹介・Works・スキル・年表・お問い合わせ)
+  thanks.html               # お問い合わせフォーム送信後の完了ページ
+  hero-illustration.png     # Aboutセクション・Worksサムネイル用イラスト
+  profile-illustration.png  # Profile(年表)セクション用イラスト
+  thoughts-illustration.png # Thoughtsセクション用イラスト
+  sitecheck-thumb.png       # Site Checkのサムネイル
+  nedaka-thumb.png          # Nedaka.のサムネイル
+  src/
+    main.ts                # サイトの挙動を書いたTypeScriptソース
+    tsconfig.json           # コンパイル設定
 ```
+
+`src/main.ts`をコンパイルした結果が`index.html`に埋め込まれる形で使われています（ビルドツールなしで完結させるため、コンパイル済みのJSを直接埋め込む構成にしています）。
 
 ## 使用技術
 
 - HTML5 / CSS3（Grid、カスタムプロパティ、アニメーション）
-- JavaScript（ES6+、フレームワークなし）
+- TypeScript（型を付けて実装し、コンパイルしたJSを埋め込み）
 - SVG（座標計算から描画したスキルレーダーチャート）
 - Canvas API（ドラッグで線を引けるミニツール）
 - Intersection Observer API（スクロール演出）
 - Formspree（お問い合わせフォームの送信）
+
+## イラストについて
+
+About・Profile・Thoughtsセクションの背景イラストと、Worksのサムネイル画像は、AI画像生成（ChatGPT）で作成しています。サイトの配色・世界観に合わせたプロンプトを自分で設計し、各セクションの内容に合わせて描き分けています。
 
 ## 開発について
 
