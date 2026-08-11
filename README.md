@@ -25,6 +25,10 @@ yukisatodev.github.io/
 - Intersection Observer API（スクロール演出）
 - Formspree（お問い合わせフォームの送信）
 
+## 開発について
+
+普段のコーディングに加え、Claude Codeも部分的に活用しながら開発・改修を進めています。例えば、モバイル表示でナビゲーションの高さがナビの背景（backdrop）に隠れて見切れてしまう不具合は、Claude Codeで修正しました。
+
 ## 掲載中の制作物
 
 - 🖥️ このポートフォリオサイト自体
