@@ -58,7 +58,7 @@ function initTerminalTypewriter(reduceMotion) {
     "",
     "$ cat skills.json",
     "{",
-    '  "frontend": ["JavaScript", "React", "TypeScript"],',
+    '  "frontend": ["JavaScript", "React", "Next.js", "TypeScript"],',
     '  "backend": ["Python", "Django", "Java"],',
     '  "tools": ["AutoCAD", "Git", "Django Admin"]',
     "}",
