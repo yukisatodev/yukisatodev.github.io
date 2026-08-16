@@ -4,195 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Resume | Satolab.</title>
-<meta name="description" content="佐藤雄貴 職務経歴書 — プラント設計エンジニアから社内SE・DX推進、フリーランスのWebエンジニアへ。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0B0D12;
-    --panel:#12151D;
-    --panel-2:#171B26;
-    --ink:#F2F1ED;
-    --ink-muted:#9CA0AC;
-    --ink-faint:#585C68;
-    --line: rgba(255,255,255,0.09);
-    --line-strong: rgba(255,255,255,0.20);
-    --accent:#C9A15A;
-    --accent-soft: rgba(201,161,90,0.14);
-    --steel:#6E93E8;
-    --term-green:#8FD7A4;
-    --radius:3px;
-    --maxw:900px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0; background:var(--bg); color:var(--ink);
-    font-family:'Noto Sans JP',sans-serif; font-weight:300;
-    line-height:1.85; -webkit-font-smoothing:antialiased;
-  }
-  body.lang-en .ja{display:none;}
-  body.lang-en .en{display:inline;}
-  body:not(.lang-en) .en{display:none;}
-  body.lang-en .ja-block{display:none;}
-  body:not(.lang-en) .en-block{display:none;}
-
-  ::selection{ background:var(--accent); color:#0B0D12; }
-
-  h1,h2,h3,.display{
-    font-family:'Zen Old Mincho',serif; font-weight:700; margin:0; letter-spacing:0.01em;
-  }
-  .mono{ font-family:'JetBrains Mono',monospace; }
-  a{ color:inherit; }
-
-  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s ease, transform .8s ease; }
-  .reveal.show{ opacity:1; transform:translateY(0); }
-  @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
-
-  /* nav */
-  .progress-line{
-    position:fixed; top:0; left:0; height:2px; background:linear-gradient(90deg, var(--accent), var(--steel));
-    z-index:70; width:0%; transition: width .1s linear;
-  }
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:60;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:22px 40px;
-    background: rgba(11,13,18,0.82); backdrop-filter: blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .brand{
-    font-family:'Zen Old Mincho',serif; font-weight:700; font-size:19px; letter-spacing:0.02em;
-    display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink);
-  }
-  .brand .mark{ width:8px; height:8px; border-radius:50%; background:var(--accent); display:inline-block; }
-  .nav-links{ display:flex; gap:28px; align-items:center; }
-  .nav-links a{
-    text-decoration:none; color:var(--ink-muted); font-size:12px;
-    font-family:'JetBrains Mono',monospace; letter-spacing:0.1em; text-transform:uppercase;
-    transition: color .25s ease;
-  }
-  .nav-links a:hover{ color:var(--accent); }
-  #langToggle{
-    background:transparent; border:1px solid var(--line-strong); color:var(--ink);
-    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.08em;
-    padding:7px 14px; cursor:pointer; border-radius:999px; transition:all .25s ease;
-  }
-  #langToggle:hover{ border-color:var(--accent); color:var(--accent); }
-  #langToggle:focus-visible, a:focus-visible, button:focus-visible{ outline:2px solid var(--steel); outline-offset:2px; }
-  @media (max-width:560px){ .nav-links a{ display:none; } }
-
-  /* header */
-  .rhead{ max-width:var(--maxw); margin:0 auto; padding:150px 32px 60px; }
-  .rhead-eyebrow{
-    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.14em; color:var(--accent);
-    display:flex; align-items:center; gap:12px; margin-bottom:22px;
-  }
-  .rhead-eyebrow .rule{ width:36px; height:1px; background:var(--accent); }
-  .rhead h1{ font-size:clamp(34px,6vw,54px); line-height:1.15; margin-bottom:10px; }
-  .rhead .kana{ font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--ink-faint); letter-spacing:0.1em; margin-bottom:26px; }
-  .meta-row{ display:flex; flex-wrap:wrap; gap:10px 28px; margin-top:26px; }
-  .meta-item{ font-size:13.5px; color:var(--ink-muted); display:flex; gap:8px; align-items:baseline; }
-  .meta-item .k{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--ink-faint); letter-spacing:0.08em; text-transform:uppercase; min-width:64px; display:inline-block; }
-  .meta-item a{ color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(201,161,90,0.35); }
-  .meta-item a:hover{ border-color:var(--accent); }
-  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; }
-  .btn{
-    display:inline-flex; align-items:center; gap:10px;
-    padding:13px 26px; border-radius:999px; border:1px solid var(--line-strong);
-    font-size:13.5px; font-weight:500; text-decoration:none; cursor:pointer;
-    background:transparent; color:var(--ink);
-    transition: border-color .25s ease, transform .25s ease, background .25s ease;
-  }
-  .btn:hover{ border-color:var(--accent); transform:translateY(-2px); }
-  .btn.primary{ background:var(--accent); color:#0B0D12; border-color:var(--accent); font-weight:700; }
-  .btn.primary:hover{ background:#dab46c; }
-
-  /* fine grid texture */
-  .texture{
-    background-image:
-      linear-gradient(var(--line) 1px, transparent 1px),
-      linear-gradient(90deg, var(--line) 1px, transparent 1px);
-    background-size: 34px 34px;
-    background-position: -1px -1px;
-  }
-
-  /* sections */
-  .sheet{ max-width:var(--maxw); margin:0 auto; padding:64px 32px; }
-  .divider{
-    display:flex; align-items:center; justify-content:center; gap:14px;
-    padding:0; max-width:var(--maxw); margin:0 auto;
-  }
-  .divider .seg{ height:1px; flex:1; background:var(--line); max-width:220px; }
-  .divider .diamond{ width:7px; height:7px; border:1px solid var(--line-strong); transform:rotate(45deg); }
-  .eyebrow{
-    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.14em; color:var(--accent);
-    display:flex; align-items:center; gap:10px; margin-bottom:22px; text-transform:uppercase;
-  }
-  .eyebrow .n{ color:var(--ink-faint); }
-  .sec-title{ font-size:clamp(24px,3.4vw,34px); margin-bottom:34px; }
-
-  .lead p{ color:var(--ink-muted); font-size:16px; margin:0 0 18px; max-width:720px; }
-  .lead strong{ color:var(--ink); font-weight:500; }
-
-  .tag-row{ display:flex; flex-wrap:wrap; gap:9px; }
-  .tag{
-    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-muted);
-    border:1px solid var(--line-strong); padding:6px 12px; border-radius:999px;
-  }
-  .tag.strong{ color:var(--accent); border-color:rgba(201,161,90,0.4); }
-  .skill-group{ margin-bottom:22px; }
-  .skill-group h4{
-    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--ink-faint);
-    text-transform:uppercase; margin:0 0 12px; font-weight:700;
-  }
-
-  /* job cards */
-  .job{
-    border:1px solid var(--line); background:var(--panel);
-    padding:32px 30px; margin-bottom:24px;
-  }
-  .job-top{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px 24px; margin-bottom:6px; }
-  .job-period{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); }
-  .job-role{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-faint); border:1px solid var(--line-strong); padding:3px 10px; border-radius:999px; }
-  .job h3{ font-size:21px; margin:2px 0 4px; font-weight:700; }
-  .job .company-sub{ font-size:13px; color:var(--ink-faint); margin-bottom:18px; }
-  .job .lede{ color:var(--ink-muted); font-size:15px; margin:0 0 18px; }
-  .achieve-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; }
-  .achieve-list li{ display:flex; gap:12px; align-items:flex-start; font-size:14.5px; color:var(--ink-muted); }
-  .achieve-list li::before{ content:"→"; color:var(--accent); flex:0 0 auto; font-family:'JetBrains Mono',monospace; }
-  .job .stack-row{ margin-top:20px; padding-top:18px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:6px; }
-  .job .stack-row span{ font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--ink-faint); border:1px solid var(--line); padding:3px 9px; }
-
-  /* education / quals */
-  .quals-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; }
-  .quals-list li{ display:flex; gap:18px; align-items:baseline; font-size:14px; }
-  .quals-list .date{ flex:0 0 68px; color:var(--accent); font-size:12px; }
-  .quals-list .label{ color:var(--ink-muted); }
-
-  .edu-block{ border:1px solid var(--line); background:var(--panel); padding:24px 26px; margin-bottom:28px; }
-  .edu-block .period{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent); margin-bottom:8px; }
-  .edu-block h4{ font-size:17px; margin:0 0 4px; font-weight:700; }
-  .edu-block p{ color:var(--ink-muted); font-size:13.5px; margin:0; }
-
-  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
-  @media (max-width:700px){ .two-col{ grid-template-columns:1fr; } }
-
-  footer{ text-align:center; padding:40px; color:var(--ink-faint); font-family:'JetBrains Mono',monospace; font-size:11px; }
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="resume-page">
 
 <div class="progress-line" id="progressLine"></div>
 <nav>
   <a class="brand" href="index.html"><span class="mark"></span>Satolab.</a>
   <div class="nav-links">
-    <a href="index.html"><span class="ja">← トップへ戻る</span><span class="en">← Back to Home</span></a>
-    <a href="index.html#contact"><span class="ja">Contact</span><span class="en">Contact</span></a>
-    <button id="langToggle">EN</button>
+    
+<a href="index.html"><span class="ja">← トップへ戻る</span><span class="en">← Back to Home</span></a>
+<a href="index.html#contact"><span class="ja">Contact</span><span class="en">Contact</span></a>
+
+    <button id="langToggle" class="lang-btn-wrap">EN</button>
   </div>
 </nav>
+
+
 
 <div class="rhead">
   <div class="rhead-eyebrow"><span class="rule"></span><span class="ja">RESUME — 職務経歴書</span><span class="en">RESUME</span></div>
@@ -204,13 +35,12 @@
   </p>
   <div class="meta-row mono">
     <span class="meta-item"><span class="k ja">生年月日</span><span class="k en">Born</span>1992.11.18</span>
-    <span class="meta-item"><span class="k ja">在住</span><span class="k en">Location</span><span class="ja">北海道 亀田郡七飯町</span><span class="en">Hokkaido, Japan</span></span>
-    <span class="meta-item"><span class="k ja">Mail</span><span class="k en">Mail</span><a href="mailto:zephyr828@gmail.com">zephyr828@gmail.com</a></span>
-    <span class="meta-item"><span class="k ja">GitHub</span><span class="k en">GitHub</span><a href="https://github.com/yukisatodev" target="_blank" rel="noopener">github.com/yukisatodev</a></span>
+    <span class="meta-item"><span class="k ja">在住</span><span class="k en">Location</span><span class="ja">北海道</span><span class="en">Hokkaido, Japan</span></span>
+    <span class="meta-item"><span class="k ja">Mail</span><span class="k en">Mail</span><a href="mailto:teno52sato@gmail.com">teno52sato@gmail.com</a></span>
   </div>
   <div class="hero-ctas">
     <a href="index.html#works" class="btn primary"><span class="ja">制作物を見る</span><span class="en">See my works</span></a>
-    <a href="mailto:zephyr828@gmail.com" class="btn"><span class="ja">連絡する</span><span class="en">Get in touch</span></a>
+    <a href="mailto:teno52sato@gmail.com" class="btn"><span class="ja">連絡する</span><span class="en">Get in touch</span></a>
   </div>
 </div>
 
@@ -221,9 +51,9 @@
     <h2 class="sec-title reveal"><span class="ja">現場理解 × ITで、課題を仕組みに変える</span><span class="en">Turning field problems into working systems</span></h2>
     <div class="lead reveal">
       <p class="ja">私の強みは、<strong>現場業務を理解した上で課題を整理し、企画から開発・導入・運用まで一貫して進められる</strong>ことです。プラントエンジニアリング分野ではAutoCAD/JW-CADによる設計実務に加え、Python・AutoLISP・C#等でCAD業務の自動化・設計支援ツールを開発。建設・不動産分野では社内SE・DX推進を担当し、ヒアリング・業務フロー分析・要件整理・画面設計・開発・テスト・導入・運用改善まで経験しました。ある業務では<strong>従来約1時間かかっていた作業を約10分まで短縮</strong>するなど、実務に直結する改善を実現しています。</p>
-      <p class="ja">現在はJava・JavaScript・Python・C#・HTML/CSS・WordPress等を活用し、複数企業のDX・業務改善支援、業務システム開発、Webサイト構築に取り組んでいます。単にシステムを作るのではなく、<strong>利用者の業務や目的を理解した上で、本当に必要な仕組みを考えて形にする</strong>ことを大切にしています。</p>
+      <p class="ja">現在はPython/Django・Java・JavaScript・C#・HTML/CSS・WordPress等を活用し、複数企業のDX・業務改善支援、業務システム開発、Webサイト構築に取り組んでいます。単にシステムを作るのではなく、<strong>利用者の業務や目的を理解した上で、本当に必要な仕組みを考えて形にする</strong>ことを大切にしています。</p>
       <p class="en">My strength is understanding how work actually gets done on the ground, then carrying that understanding through planning, development, rollout, and operation as one continuous thread. In plant engineering I designed with AutoCAD/JW-CAD and built CAD-automation tools in Python, AutoLISP, and C#. In construction/real-estate I ran in-house DX projects end to end — interviews, workflow analysis, requirements, screen design, build, test, rollout, and iteration — cutting one recurring task from roughly an hour to about ten minutes.</p>
-      <p class="en">Today I work across Java, JavaScript, Python, C#, HTML/CSS, and WordPress, supporting DX and process improvement, building internal systems, and shipping websites for multiple clients. I don't just build what's asked — I take the time to understand what a system is actually for before deciding what to build.</p>
+      <p class="en">Today I work across Python/Django, Java, JavaScript, C#, HTML/CSS, and WordPress, supporting DX and process improvement, building internal systems, and shipping websites for multiple clients. I don't just build what's asked — I take the time to understand what a system is actually for before deciding what to build.</p>
     </div>
   </div>
 </section>
@@ -237,7 +67,7 @@
       <div class="skill-group">
         <h4><span class="ja">開発言語 / フレームワーク</span><span class="en">Languages</span></h4>
         <div class="tag-row">
-          <span class="tag strong">Python</span><span class="tag strong">JavaScript</span><span class="tag strong">Java</span>
+          <span class="tag strong">Python</span><span class="tag strong">Django</span><span class="tag strong">JavaScript</span><span class="tag strong">Java</span>
           <span class="tag">C# / .NET</span><span class="tag">AutoLISP</span><span class="tag">HTML / CSS</span>
         </div>
       </div>
@@ -282,7 +112,7 @@
         <li><span class="ja">クラウドサービス・ITツールの選定、初期設定、マニュアル作成、定着支援まで運用面も継続サポート</span><span class="en">Select and roll out cloud/IT tools, including setup, documentation, and adoption support</span></li>
         <li><span class="ja">プラント・建設・不動産・通信インフラでの実務経験を活かし、業務部門の視点からIT提案が可能</span><span class="en">Bring hands-on experience across plant, construction, real-estate, and telecom-infra sectors to every engagement</span></li>
       </ul>
-      <div class="stack-row mono"><span>Java</span><span>JavaScript</span><span>Python</span><span>C#</span><span>HTML/CSS</span><span>WordPress</span><span>AutoLISP</span></div>
+      <div class="stack-row mono"><span>Python</span><span>Django</span><span>Java</span><span>JavaScript</span><span>C#</span><span>HTML/CSS</span><span>WordPress</span><span>AutoLISP</span></div>
     </article>
 
     <article class="job reveal">
@@ -345,14 +175,33 @@
       </div>
       <div>
         <h4 class="mono" style="font-size:11px; letter-spacing:0.1em; color:var(--ink-faint); text-transform:uppercase; margin:0 0 16px;"><span class="ja">保有資格</span><span class="en">Certifications</span></h4>
+
+        <h5 class="mono" style="font-size:10.5px; letter-spacing:0.08em; color:var(--accent); text-transform:uppercase; margin:0 0 10px;"><span class="ja">IT系</span><span class="en">IT-related</span></h5>
+        <ul class="quals-list" style="margin-bottom:26px;">
+          
+          <li><span class="date mono">2025.10</span><span class="label"><span class="ja">ITパスポート試験 合格</span><span class="en">IT Passport Exam</span></span></li>
+          
+          <li><span class="date mono">2026.7</span><span class="label"><span class="ja">Google AI プロフェッショナル認定試験 合格</span><span class="en">Google AI Professional Certification</span></span></li>
+          
+          <li><span class="date mono">2026.8</span><span class="label"><span class="ja">Googleアナリティクス認定試験 合格</span><span class="en">Google Analytics Certification</span></span></li>
+          
+        </ul>
+
+        <h5 class="mono" style="font-size:10.5px; letter-spacing:0.08em; color:var(--ink-faint); text-transform:uppercase; margin:0 0 10px;"><span class="ja">その他</span><span class="en">Other</span></h5>
         <ul class="quals-list">
-          <li><span class="date mono">2024.3</span><span class="label"><span class="ja">2級ファイナンシャル・プランニング技能士</span><span class="en">Financial Planning Technician, Grade 2</span></span></li>
-          <li><span class="date mono">2024.5</span><span class="label"><span class="ja">宅地建物取引士</span><span class="en">Licensed Real Estate Transaction Manager</span></span></li>
-          <li><span class="date mono">2025.7</span><span class="label"><span class="ja">JBA公認コーチ・審判ライセンス</span><span class="en">JBA Certified Coach / Referee License</span></span></li>
-          <li><span class="date mono">2025.10</span><span class="label"><span class="ja">ITパスポート試験</span><span class="en">IT Passport Exam</span></span></li>
-          <li><span class="date mono">—</span><span class="label"><span class="ja">CAD利用技術者</span><span class="en">CAD Practitioner Certification</span></span></li>
-          <li><span class="date mono">—</span><span class="label"><span class="ja">秘書技能検定</span><span class="en">Secretarial Skills Certification</span></span></li>
-          <li><span class="date mono">—</span><span class="label"><span class="ja">普通自動車第一種運転免許</span><span class="en">Standard Driver's License</span></span></li>
+          
+          <li><span class="date mono">2011.11</span><span class="label"><span class="ja">普通自動車第一種運転免許（準中型）取得</span><span class="en">Standard Driver&#x27;s License (Semi-Medium)</span></span></li>
+          
+          <li><span class="date mono">2013.8</span><span class="label"><span class="ja">普通自動二輪車免許 取得</span><span class="en">Standard Motorcycle License</span></span></li>
+          
+          <li><span class="date mono">2023.10</span><span class="label"><span class="ja">損害保険募集人一般試験（基礎・自動車・火災単位）合格</span><span class="en">General Insurance Solicitor Exam (Basic / Auto / Fire)</span></span></li>
+          
+          <li><span class="date mono">2024.3</span><span class="label"><span class="ja">2級ファイナンシャル・プランニング技能士 取得</span><span class="en">Financial Planning Technician, Grade 2</span></span></li>
+          
+          <li><span class="date mono">2024.5</span><span class="label"><span class="ja">宅地建物取引士 取得</span><span class="en">Licensed Real Estate Transaction Manager</span></span></li>
+          
+          <li><span class="date mono">2025.7</span><span class="label"><span class="ja">JBA公認コーチ・審判ライセンス 取得</span><span class="en">JBA Certified Coach / Referee License</span></span></li>
+          
         </ul>
       </div>
     </div>
@@ -369,43 +218,22 @@
       <p class="en">Across plant engineering, construction, and real estate, I've found the most reward in solving business problems through IT and improving the systems themselves. I want to keep deepening my expertise as an SE — staying involved end to end, from requirements through design, build, rollout, and continuous improvement — and keep solving problems on the ground through technology.</p>
     </div>
     <div class="hero-ctas reveal">
-      <a href="mailto:zephyr828@gmail.com" class="btn primary"><span class="ja">連絡する</span><span class="en">Get in touch</span></a>
+      <a href="mailto:teno52sato@gmail.com" class="btn primary"><span class="ja">連絡する</span><span class="en">Get in touch</span></a>
       <a href="index.html" class="btn"><span class="ja">← ポートフォリオを見る</span><span class="en">← View portfolio</span></a>
     </div>
   </div>
 </section>
 
+
+
 <footer>
-  <span class="ja">© 2026 SATOLAB.</span>
-  <span class="en">© 2026 SATOLAB.</span>
+  <span class="ja">&copy; 2026 SATOLAB.</span>
+  <span class="en">&copy; 2026 SATOLAB.</span>
 </footer>
 
-<script>
-"use strict";
-(function initLangToggle(){
-  var btn = document.getElementById('langToggle');
-  if (!btn) return;
-  btn.addEventListener('click', function(){
-    var isEn = document.body.classList.toggle('lang-en');
-    btn.textContent = isEn ? 'JA' : 'EN';
-    document.documentElement.lang = isEn ? 'en' : 'ja';
-  });
-})();
-(function initRevealOnScroll(){
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){ if (entry.isIntersecting) entry.target.classList.add('show'); });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-})();
-(function initProgressLine(){
-  var progressLine = document.getElementById('progressLine');
-  if (!progressLine) return;
-  window.addEventListener('scroll', function(){
-    var h = document.documentElement;
-    var scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
-    progressLine.style.width = scrolled + '%';
-  });
-})();
-</script>
+
+
+<script src="js/main.js"></script>
+
 </body>
 </html>

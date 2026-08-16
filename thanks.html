@@ -6,26 +6,45 @@
 <title>Thanks | Satolab.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@700;900&family=Noto+Sans+JP:wght@300;400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  body{
-    margin:0; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    background:#0B0D12; color:#F2F1ED; font-family:'Noto Sans JP',sans-serif; font-weight:300;
-    text-align:center; padding:40px;
-  }
-  h1{ font-family:'Zen Old Mincho',serif; font-weight:700; font-size:clamp(30px,6vw,48px); margin:0 0 18px; }
-  p{ color:#9CA0AC; max-width:440px; line-height:1.8; margin:0 0 34px; }
-  a{
-    font-family:'JetBrains Mono',monospace; font-size:13px; color:#C9A15A; text-decoration:none;
-    border:1px solid rgba(255,255,255,0.2); padding:12px 26px; border-radius:999px;
-    transition: border-color .25s ease, color .25s ease;
-  }
-  a:hover{ border-color:#C9A15A; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <h1>ありがとうございました。</h1>
-  <p>メッセージを受け取りました。折り返しご連絡いたします。</p>
-  <a href="/">← トップに戻る</a>
+<body class="">
+
+<div class="progress-line" id="progressLine"></div>
+<nav>
+  <a class="brand" href="index.html"><span class="mark"></span>Satolab.</a>
+  <div class="nav-links">
+    
+<a href="index.html"><span class="ja">← トップへ戻る</span><span class="en">← Back to Home</span></a>
+
+    <button id="langToggle" class="lang-btn-wrap">EN</button>
+  </div>
+</nav>
+
+
+<div style="min-height:80vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:40px;">
+  <h1 style="font-size:clamp(30px,6vw,48px); margin-bottom:18px;">
+    <span class="ja">ありがとうございました。</span><span class="en">Thank you.</span>
+  </h1>
+  <p style="color:var(--ink-muted); max-width:440px; margin-bottom:34px;">
+    <span class="ja">メッセージを受け取りました。折り返しご連絡いたします。</span>
+    <span class="en">Your message has been received. I'll get back to you soon.</span>
+  </p>
+  <a href="index.html" class="btn primary">
+    <span class="ja">← トップに戻る</span><span class="en">← Back to top</span>
+  </a>
+</div>
+
+
+<footer>
+  <span class="ja">&copy; 2026 SATOLAB.</span>
+  <span class="en">&copy; 2026 SATOLAB.</span>
+</footer>
+
+
+
+<script src="js/main.js"></script>
+
 </body>
 </html>
