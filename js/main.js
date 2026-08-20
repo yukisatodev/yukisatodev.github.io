@@ -59,8 +59,8 @@ function initTerminalTypewriter(reduceMotion) {
     "$ cat skills.json",
     "{",
     '  "frontend": ["JavaScript", "React", "Next.js", "TypeScript"],',
-    '  "backend": ["Python", "Django", "Java"],',
-    '  "tools": ["AutoCAD", "Git", "Django Admin"]',
+    '  "backend": ["Python", "FastAPI", "Java"],',
+    '  "tools": ["AutoCAD", "Git", "Ollama"]',
     "}",
     "",
     "$ status --current",
@@ -184,6 +184,19 @@ function initWorkModal() {
   });
 }
 
+// ---------- Why Me: 横スクロールカード ----------
+function initWhyScroll() {
+  const scroller = document.getElementById("whyScroll");
+  if (!scroller) return;
+  const step = () => (scroller.querySelector(".why-card")?.offsetWidth || 300) + 20;
+  document.getElementById("whyPrev")?.addEventListener("click", () => {
+    scroller.scrollBy({ left: -step(), behavior: "smooth" });
+  });
+  document.getElementById("whyNext")?.addEventListener("click", () => {
+    scroller.scrollBy({ left: step(), behavior: "smooth" });
+  });
+}
+
 // ---------- Playground: ミニ製図ツール ----------
 function initBlueprintTool() {
   const canvas = document.getElementById("blueprintCanvas");
@@ -285,5 +298,6 @@ function initBlueprintTool() {
   initTiltAndMagnetic(reduceMotion);
   buildHeatmap();
   initWorkModal();
+  initWhyScroll();
   initBlueprintTool();
 })();
